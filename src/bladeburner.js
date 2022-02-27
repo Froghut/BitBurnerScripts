@@ -54,9 +54,6 @@ export async function main(ns) {
         var currentCity = b.getCity();
         var citiesWithCommunities = [];
         for (var city of cities) {
-            if (city == currentCity){
-                continue;
-            }
             if (b.getCityCommunities(city) > 0) {
                 citiesWithCommunities.push(city);
             }
@@ -164,10 +161,12 @@ export async function main(ns) {
         var blackopsNames = b.getBlackOpNames();
         var doingBO = false;
         for (var boname of blackopsNames) {
-            if (b.getBlackOpRank(boname) <= b.getRank() && b.getActionCountRemaining("BlackOps", boname) == 1 && b.getActionEstimatedSuccessChance("BlackOps", boname)[0] >= 0.95 && boname != "Operation Daedalus") {
-                b.startAction("BlackOps", boname);
-                sleepTime = b.getActionTime("BlackOps", boname);
-                doingBO = true;
+            if (b.getActionCountRemaining("BlackOps", boname) == 1) {
+                if (b.getBlackOpRank(boname) <= b.getRank() && b.getActionEstimatedSuccessChance("BlackOps", boname)[0] >= 0.95 && boname != "Operation Daedalus") {
+                    b.startAction("BlackOps", boname);
+                    sleepTime = b.getActionTime("BlackOps", boname);
+                    doingBO = true;
+                }
                 break;
             }
         }
