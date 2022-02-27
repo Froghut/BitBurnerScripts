@@ -1,0 +1,1 @@
+crimeƒ50ƒCurrent Crime:ƒHomicide<a onClick="(function() { window.comexec.writePort(4, 'resume'); })();" style="cursor: pointer; color: red;">⏵︎</a>ƒMoney:ƒ45.000kƒTime:ƒ0:00:03ƒChance:ƒ100%ƒFactor:ƒ15ƒKarma:ƒ-9.63k

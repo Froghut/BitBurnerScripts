@@ -1,0 +1,4 @@
+/** @param {NS} ns **/
+export async function main(ns) {
+    ns.toast(ns.args[0], "info");
+}

@@ -1,0 +1,107 @@
+/** @param {import("..").NS } ns **/
+export async function main(ns) {
+	//ns.tprint;
+
+	/*var ret = "[";
+
+	for (var frag of ns.stanek.activeFragments()) {
+		ret += `[${frag.x},${frag.y}],`
+	}
+	ns.tprint(ret + "]");*/
+	ns.tprint(ns.bladeburner.getActionCountRemaining("BlackOps", ns.bladeburner.getBlackOpNames()[1]));
+
+	//ns.tprint(ns.getServer("megacorp").moneyMax);
+	//	ns.tprint(ns.getServerMaxMoney("megacorp"));
+	/*var number = 123.123;
+	await ns.write("test.txt", number,"w");
+
+	var newnumber = 0;
+	newnumber += Number.parseFloat(await ns.read("test.txt"));
+	newnumber += 2;
+	ns.tprint(newnumber);*/
+
+
+	/*var installedAugs = ns.getOwnedAugmentations(false);
+	var allOwnedAugs = ns.getOwnedAugmentations(true);
+	var ownedAugs = allOwnedAugs.filter(el => !installedAugs.includes(el));
+	
+	var originalPrice = 43481590 / Math.pow(1.9, ownedAugs.length);
+
+	ns.tprint(ns.nFormat(originalPrice, "0.000a"));
+	ns.tprint(ns.getAugmentationPrice("NeuroFlux Governor"));*/
+	
+	//await ns.sleep(2000);
+	//var ele = document.querySelector("#root > div > div.MuiBox-root.css-1ik4laa > div.MuiDrawer-root.MuiDrawer-docked.css-v3syqg > div > ul > div:nth-child(2) > div > div > ul > div:nth-child(1)");
+	//ele.click();
+	//eval("ns.tprint(ns.heart.break())");
+	//ns.tprint(ns.getServerMaxRam("home"));
+	
+	/*var doc = eval("document");
+	var win = eval("window");
+	var add = `<a onClick="(function() { window.testc.runCommand('ns.tprint(\`test!\`)'); })();">test</a>`;
+	win.testc = new testc(ns);
+	await ns.write("/data/stats/test.txt", "testƒ100ƒtestƒ" + add, "w")
+*/
+	// ns.atExit(() => {
+	// 	eval("window.comexec.rm('test.txt');")
+	// }
+	// 	);
+	// while(true) {
+	// 	await ns.asleep(30000);
+	// }
+	//eval("window.comexec.rm('test.txt');");
+	//await injectAugEnhancement(ns);
+}
+
+
+async function injectAugEnhancement(ns) {
+	//await ns.sleep(5000);
+	var doc = eval("document");
+	var onAugmentsPage = false;
+	while (!onAugmentsPage) {
+		await ns.sleep(100);
+		var node = doc.querySelector("#root > div > div.MuiBox-root.css-1ik4laa > div.jss3.MuiBox-root.css-1335198 > h4");
+		if (node != null) {
+			if (node.innerText == "Faction Augmentations") {
+				onAugmentsPage = true;
+			}
+		}
+	}
+	
+	var augText = doc.querySelector("#root > div > div.MuiBox-root.css-1ik4laa > div.jss3.MuiBox-root.css-1335198 > p");
+	var matches = augText.innerText.match(/from (.*?)\./);
+	var faction = matches[1];
+
+	var buttonTDs = doc.querySelectorAll("#root > div > div.MuiBox-root.css-1ik4laa > div.jss3.MuiBox-root.css-1335198 > table:nth-child(10) > tbody > tr > td:nth-child(1)");
+	var i = 0;
+	for (var td of buttonTDs) {
+		var augName = td.nextElementSibling.querySelector("div > p").innerText;
+		if (augName.startsWith("NeuroFlux Governor")) {
+			augName = "NeuroFlux Governor";
+		}
+		var onClick = `onClick="(function() { window.comexec.run('buyaug.js', '`+ faction +`', '`+ augName +`'); document.getElementById('augbutton`+i+`').style.color='red' })();"`
+		
+		var frag = doc.createRange().createContextualFragment('<button id="augbutton'+i+'" class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root css-13ak5e0" tabindex="0" type="button" '+onClick+'>BuyNext<span class="MuiTouchRipple-root css-w0pj6f"></span></button>');
+		td.prepend(frag);
+		i++;
+	}
+	ns.toast("done");
+}
+
+// class testc {
+// constructor(ns) {
+// 	this.ns = ns;
+// }
+// async runCommand(command) {
+// 	try {
+// 		const ns = this.ns;
+// 		if (command === "exit")
+// 			command = "ns.exit()";
+// 		const result = await eval(command);
+// 	}
+// 	catch (error) {
+// 		//win.console.error(error);
+// 	}
+// }
+
+// }

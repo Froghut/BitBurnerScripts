@@ -1,0 +1,6 @@
+/** @param {NS} ns **/
+export async function main(ns) {
+	var args = ns.args.slice(1);
+	ns.scriptKill(ns.args[0], "home");
+	ns.spawn(ns.args[0], 1, args);
+}
